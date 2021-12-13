@@ -10,7 +10,7 @@ This Awwards web application serves mainly to enable on to view my projects and 
 <img src="media/project2.png">
 
 ## Setup/Installation Requirements
-Install python3.8 Git clone:https://github.com/bre-nda/awwards. Open terminal command line then navigate to the root folder of the application. cd
+Install python3.8 Git clone:https://github.com/bre-nda/Awwards. Open terminal command line then navigate to the root folder of the application. cd
 
 ## Prerequisites
 Create and activate Virtual env then install pip To install django -pip install django LTS Have basic git knowledge
@@ -49,7 +49,7 @@ For support and contact details;
 Call:0743495599 Email at brendaandeso4@gmail.com
 
 ### License
-(https://github.com/bre-nda/awwards/blob/master/Licence)
+(https://github.com/bre-nda/Awwards/blob/master/Licence)
 
 ### Copyright
 Copyright (c) {2021} Brenda Andeso
