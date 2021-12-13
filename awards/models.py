@@ -24,3 +24,8 @@ class Project(models.Model):
     class Meta:
     
         ordering = ['pub_date']
+
+    @classmethod
+    def search_project(cls, search_term):
+        project = cls.objects.filter(title__icontains=search_term)
+        return project
