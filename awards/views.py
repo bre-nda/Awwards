@@ -3,9 +3,10 @@ from django.shortcuts import render,redirect
 
 from django.http  import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import UserUpdateForm, ProfileUpdateForm, ProjectUploadForm
+from .forms import UserUpdateForm, ProfileUpdateForm, ProjectUploadForm, UserRegisterForm
 from awards.models import Project,User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -30,10 +31,13 @@ def search_results(request):
         message = "You haven't searched for any projects yet"
     return render(request, 'search.html', {'message': message})
 
+@login_required
 def profile(request):
     projects = request.user.profile.projects.all()
     return render(request, 'profile.html', {"projects":projects})
 
+
+@login_required
 def update(request):
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -53,6 +57,8 @@ def update(request):
     }
     return render(request, 'update.html', context)
 
+    
+@login_required
 def upload_project(request):
     users = User.objects.exclude(id=request.user.id)
     if request.method == "POST":
@@ -65,3 +71,16 @@ def upload_project(request):
     else:
         form = ProjectUploadForm()
     return render(request, 'upload_project.html', {"form": form, "users": users})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Successfully created account created for {username}! Please log in to continue')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'registration/register.html', {'form':form})
+
