@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'awards',
     'bootstrap4',
     'cloudinary',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
