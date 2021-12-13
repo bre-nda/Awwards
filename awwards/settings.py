@@ -147,6 +147,12 @@ cloudinary.config(
   api_key = "425287129295112", 
   api_secret = "G2q33r2xhFA47cpvXLhhHWwTNPk" 
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
