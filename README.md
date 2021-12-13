@@ -6,7 +6,7 @@ Brenda Andeso.
 This Awwards web application serves mainly to enable on to view my projects and rate them. It also enables one to post their own projects after signing up for an account.
 
 ## Screenshot
-<img src="media/project1.png">
+<img src="media/project3.png">
 <img src="media/project2.png">
 
 ## Setup/Installation Requirements
