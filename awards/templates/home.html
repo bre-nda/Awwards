@@ -35,17 +35,4 @@
         </div>
         {% endfor %}
     </div>
-</div><br><br><br><br><br><br>
-<script>
-    const checkpoint = 400;
-
-    window.addEventListener("scroll", () => {
-        const currentScroll = window.pageYOffset;
-        if (currentScroll <= checkpoint) {
-            opacity = 1 - currentScroll / checkpoint;
-        } else {
-            opacity = 0;
-        }
-        document.querySelector(".fadeout").style.opacity = opacity;
-    });
-</script> {% endblock %}
+</div><br><br><br><br><br><br> {% endblock %}
