@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 
 from django.http  import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import UserUpdateForm, ProfileUpdateForm, ProjectUploadForm, UserRegisterForm
+from .forms import UserUpdateForm, ProfileUpdateForm, ProjectUploadForm, UserRegisterForm, RateForm
 from awards.models import Project,User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -57,7 +57,7 @@ def update(request):
     }
     return render(request, 'update.html', context)
 
-    
+
 @login_required
 def upload_project(request):
     users = User.objects.exclude(id=request.user.id)
@@ -67,7 +67,7 @@ def upload_project(request):
             project = form.save(commit = False)
             project.save()
             messages.success(request, f'Successfully uploaded your Project!')
-            return redirect('index')
+            return redirect('home')
     else:
         form = ProjectUploadForm()
     return render(request, 'upload_project.html', {"form": form, "users": users})
@@ -83,4 +83,21 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form':form})
+
+def rate(request, project_id):
+    project = Project.objects.get(id=project_id)
+    user = request.user
+    if request.method == 'POST':
+        form = RateForm(request.POST)
+        if form.is_valid():
+            rate = form.save(commit=False)
+            rate.user = user
+            rate.project = project
+            rate.save()
+        return render(request, 'project.html', locals())
+    else:
+        form = RateForm()
+    return render(request, 'rate.html', locals())
+
+
 
