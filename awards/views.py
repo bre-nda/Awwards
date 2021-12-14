@@ -102,7 +102,8 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form':form})
-
+    
+@login_required
 def rate(request, project_id):
     project = Project.objects.get(id=project_id)
     user = request.user
