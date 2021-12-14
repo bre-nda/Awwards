@@ -1,10 +1,13 @@
+
 from django.http.response import Http404
 from django.shortcuts import render,redirect
+from .serializers import ProfileSerializer, ProjectSerializer
+from rest_framework import generics
 
 from django.http  import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import UserUpdateForm, ProfileUpdateForm, ProjectUploadForm, UserRegisterForm, RateForm
-from awards.models import Project,User
+from awards.models import Project,User,Profile
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -21,6 +24,14 @@ def project(request,project_id):
         raise Http404()
     return render(request,"project.html", {"project":project})
 
+class ListProjectView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
 def search_results(request):
     if 'project' in request.GET and request.GET["project"]:
         search_term = request.GET.get("project")
@@ -35,6 +46,14 @@ def search_results(request):
 def profile(request):
     projects = request.user.profile.projects.all()
     return render(request, 'profile.html', {"projects":projects})
+
+class ListProfileView(generics.ListAPIView):
+    """
+    Provides a get method handler.
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
 
 
 @login_required
